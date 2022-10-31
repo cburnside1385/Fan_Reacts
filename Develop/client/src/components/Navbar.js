@@ -56,21 +56,25 @@ const AppNavbar = () => {
           <Navbar.Collapse id='navbar'>
             <Nav className='ml-auto'>
                           <Nav.Item>
-                              <Form onSubmit={handleFormSubmit}>
-                              <Form.Control
+                              <Form>
+
+                                  <Form.Control
                                   name='searchInput'
                                   value={searchInput}
                                       onChange={(e) => setSearchInput(e.target.value) }
                                   type='text'
                                   size='lg'
                                   placeholder='Search for a movie'
-                              />
-                              <Button type='submit' variant='success' size=''>
-                                  Submit Search
-                                  </Button>
-                                    </Form>
+                                            />
+                         
+                              </Form>
+                              
                           </Nav.Item>
-
+                          <Nav.Item>
+                              <Form onSubmit={handleFormSubmit}>
+                                  <button className="btn btn-outline-success" id="searchbtn" type="submit">Search</button>
+                              </Form>
+                          </Nav.Item>
               {Auth.loggedIn() ? (
                 <>
                   <Nav as={Link} to='/saved'>
@@ -122,26 +126,28 @@ const AppNavbar = () => {
           <>
 
 
-              <Container>
-                  <div class="form-row col-12">
+              <Container className="sideScroll">
+                 
+                      <div class="form-row text-center">
+                         
                       {Moviesearch.map((movie) => {
                          
                           return (
-                                <div class="card">
-                                  <a>
-                                      <img class="img1" src={`https://image.tmdb.org/t/p/original/${movie.poster}`} />
+                              <div className="card">
+                                 
+                                      <img className="img1" src={`https://image.tmdb.org/t/p/original/${movie.poster}`} />
                                       <center>
-                                      <div class="img2">{movie.title}</div>
+                                      <div className="img2">{movie.title}</div>
                                           </center>
-                                      <div class="text">{movie.overview}</div>
-                                  </a>
+                                    <div className="text">{movie.overview}</div>
+                                  
                               </div>
                              
                           );
                       })}
-                                        
-                              </div>
-
+                                 
+                             
+                  </div>
               </Container>
           </>
       </>
