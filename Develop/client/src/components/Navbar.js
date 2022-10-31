@@ -4,7 +4,8 @@ import SignUpForm from './SignupForm';
 import LoginForm from './LoginForm';
 import { search } from '../utils/API';
 import { Navbar, Nav, Container, Modal, Tab, Form, Button } from 'react-bootstrap';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+/*import {Icons} from "@fortawesome/fontawesome-free-solid"*/
 import Auth from '../utils/auth';
 
 
@@ -134,9 +135,10 @@ const AppNavbar = () => {
                          
                           return (
                               <div className="card">
-                                 
+                                  
                                       <img className="img1" src={`https://image.tmdb.org/t/p/original/${movie.poster}`} />
-                                      <center>
+                                  <center>
+                                     {/* <FontAwesomeIcon icon={Icons.faCopyright} size="6x" />*/}
                                       <div className="img2">{movie.title}</div>
                                           </center>
                                     <div className="text">{movie.overview}</div>

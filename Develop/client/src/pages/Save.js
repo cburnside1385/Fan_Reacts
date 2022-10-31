@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Jumbotron, Container, CardColumns, Card, Button } from 'react-bootstrap';
 
-import { get_Me } from '../utils/queries';
+import { PersonalProfile } from '../utils/queries';
 import Auth from '../utils/auth';
 import { removeMovieId } from '../utils/localStorage';
 import { useQuery, useMutation } from '@apollo/client';
@@ -12,7 +12,7 @@ const Save = () => {
     const [REMOVE_Movie, { error }] = useMutation(REMOVE_Movie);
   // use this to determine if `useEffect()` hook needs to run again
   const userDataLength = Object.keys(userData).length;
-    const { loading, data } = useQuery(get_Me);
+    const { loading, data } = useQuery(PersonalProfile);
   useEffect(() => {
     const getUserData = async () => {
       try {
@@ -22,7 +22,7 @@ const Save = () => {
           return false;
         }
 
-        const response = await get_Me(token);
+          const response = await PersonalProfile(token);
 
         if (!response.ok) {
           throw new Error('something went wrong!');

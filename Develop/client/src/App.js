@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Search from './pages/Popular';
+import Popular from './pages/Popular';
 import Save from './pages/Save';
 import Navbar from './components/Navbar';
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
@@ -32,7 +32,7 @@ function App() {
       <>
         <Navbar />
         <Switch>
-          <Route exact path='/' component={Search} />
+          <Route exact path='/' component={Popular} />
           <Route exact path='/saved' component={Save} />
          {/* <Route render={() => <h1 className='display-2'>Wrong page!</h1>} />*/}
         </Switch>

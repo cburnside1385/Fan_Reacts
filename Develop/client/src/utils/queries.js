@@ -1,19 +1,17 @@
 import { gql } from '@apollo/client';
 
-export const get_Me = gql`
+export const PersonalProfile = gql`
   {
     me {
       _id
       username
       email
-      bookCount
+      
       Save {
-        bookId
-        authors
-        description
+        movieId
+        overview
         title
-        image
-        link
+        poster
       }
     }
   }
