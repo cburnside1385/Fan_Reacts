@@ -25,7 +25,7 @@ const Save = () => {
           const response = await PersonalProfile(token);
 
         if (!response.ok) {
-          throw new Error('something went wrong!');
+          throw new Error('Error!');
         }
 
         const user = await response.json();
@@ -38,8 +38,8 @@ const Save = () => {
     getUserData();
   }, [userDataLength]);
 
-  // create function that accepts the book's mongo _id value as param and deletes the book from the database
-  const handleDeleteBook = async (bookId) => {
+
+  const handleDeleteMovies = async (movieId) => {
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
     if (!token) {
@@ -48,10 +48,10 @@ const Save = () => {
 
     try {
         const { data } = await REMOVE_Movie({
-            variables: { bookId },
+            variables: { movieId },
         });
 
-        removeMovieId(bookId);
+        removeMovieId(movieId);
     } catch (err) {
       console.error(err);
     }
@@ -66,26 +66,26 @@ const Save = () => {
     <>
       <Jumbotron fluid className='text-light bg-dark'>
         <Container>
-          <h1>Viewing saved books!</h1>
+          <h1>Viewing saved movies!</h1>
         </Container>
       </Jumbotron>
       <Container>
         <h2>
           {userData.Save.length
-            ? `Viewing ${userData.Save.length} saved ${userData.Save.length === 1 ? 'book' : 'books'}:`
-            : 'You have no saved books!'}
+            ? `Viewing ${userData.Save.length} saved ${userData.Save.length === 1 ? 'movie' : 'movies'}:`
+            : 'You have no saved movies!'}
         </h2>
         <CardColumns>
-          {userData.Save.map((book) => {
+          {userData.Save.map((movie) => {
             return (
-              <Card key={book.bookId} border='dark'>
-                {book.image ? <Card.Img src={book.image} alt={`The cover for ${book.title}`} variant='top' /> : null}
+              <Card key={movie.movieId} border='dark'>
+                {movie.image ? <Card.Img src={movie.image} alt={`The cover for ${movie.title}`} variant='top' /> : null}
                 <Card.Body>
-                  <Card.Title>{book.title}</Card.Title>
-                  <p className='small'>Authors: {book.authors}</p>
-                  <Card.Text>{book.description}</Card.Text>
-                  <Button className='btn-block btn-danger' onClick={() => handleDeleteBook(book.bookId)}>
-                    Delete this Book!
+                  <Card.Title>{movie.title}</Card.Title>
+                
+                  <Card.Text>{movie.description}</Card.Text>
+                  <Button className='btn-block btn-danger' onClick={() => handleDeleteMovies(movie.movieId)}>
+                    Delete this Movie!
                   </Button>
                 </Card.Body>
               </Card>
