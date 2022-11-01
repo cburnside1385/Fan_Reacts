@@ -127,7 +127,7 @@ const AppNavbar = () => {
           <>
 
 
-              <Container className="sideScroll">
+              
                  
                       <div class="form-row text-center">
                          
@@ -150,7 +150,7 @@ const AppNavbar = () => {
                                  
                              
                   </div>
-              </Container>
+            
           </>
       </>
 
