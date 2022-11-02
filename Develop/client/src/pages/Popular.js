@@ -22,23 +22,14 @@ const Popular = () => {
 
         try {
             const response = await start();
-            const response2 = await nowplaying();
-            const response3 = await upcoming();
+           
 
             if (!response.ok) {
                 throw new Error('something went wrong!');
             }
-            if (!response2.ok) {
-                throw new Error('something went wrong!');
-            }
-            if (!response3.ok) {
-                throw new Error('something went wrong!');
-            }
-
-
+       
             var { results } = await response.json();
-            var { results } = await response2.json();
-            var { results } = await response3.json();
+     
             console.log(results)
 
             const filmspopular = results.map((movie) => ({
@@ -51,33 +42,101 @@ const Popular = () => {
 
           
 
-            const filmsnow = results.map((movie) => ({
-                id: movie.id,
-                filmID: movie.id,
-                title: movie.title,
-                overview: movie.overview,
-                poster: movie.poster_path,
-            }));
-
-            const filmsupc = results.map((movie) => ({
-                id: movie.id,
-                filmID: movie.id,
-                title: movie.title,
-                overview: movie.overview,
-                poster: movie.poster_path,
-            }));
-
+           
 
             popularmovieapi(filmspopular);
-            nowplayingmovieapi(filmsnow);
-            upcomingmovieapi(filmsupc);
-         
+          
 
         } catch (err) {
             console.error(err);
         }
     };
 
+    const Upcomingfilms = async () => {
+
+
+
+        try {
+          
+            const response2 = await upcoming();
+     
+
+            if (!response2.ok) {
+                throw new Error('something went wrong!');
+            }
+        
+
+
+        
+            var { results } = await response2.json();
+         
+            console.log(results)
+
+            const Upcomingfilms = results.map((movie) => ({
+                id2: movie.id,
+                filmID2: movie.id,
+                title2: movie.title,
+                overview2: movie.overview,
+                poster2: movie.poster_path,
+            }));
+
+
+
+           
+
+
+          
+            upcomingmovieapi(Upcomingfilms);
+         
+
+
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    const Nowfilms = async () => {
+
+
+
+        try {
+
+            const response3 = await nowplaying();
+
+
+            if (!response3.ok) {
+                throw new Error('something went wrong!');
+            }
+
+
+
+
+            var { results } = await response3.json();
+
+            console.log(results)
+
+            const Nowfilms = results.map((movie) => ({
+                id3: movie.id,
+                filmID3: movie.id,
+                title3: movie.title,
+                overview3: movie.overview,
+                poster3: movie.poster_path,
+            }));
+
+
+
+
+
+
+
+            nowplayingmovieapi(Nowfilms);
+
+
+
+        } catch (err) {
+            console.error(err);
+        }
+    };
     const saveIt = async (filmID) => {
 
         const savefilms = populars.find((movie) => movie.id === filmID);
@@ -101,6 +160,8 @@ const Popular = () => {
     };
     useEffect(() => {
         Popularfilms();
+        Upcomingfilms();
+        Nowfilms();
     }, []);
     return (
         
@@ -111,7 +172,7 @@ const Popular = () => {
 
 
             
-
+            <center><h3>Now Playing</h3></center>
                 <div className="text-center scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4 pt-2">
 
                 {nowplayingmovies.map((movie) => {
@@ -136,11 +197,11 @@ const Popular = () => {
 
 
                                     )}
-                                    <img className="img1" src={`https://image.tmdb.org/t/p/original/${movie.poster}`} />
+                                    <img className="img1" src={`https://image.tmdb.org/t/p/original/${movie.poster3}`} />
                                     <center>
-                                        <div className="img2">{movie.title}</div>
+                                        <div className="img2">{movie.title3}</div>
                                     </center>
-                                    <div className="text">{movie.overview}</div>
+                                    <div className="text">{movie.overview3}</div>
 
                                 </div>
                                   
@@ -152,6 +213,7 @@ const Popular = () => {
 
                     </div>
             <>
+                <center><h3>Upcoming</h3></center>
                 <div className="text-center scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4 pt-2">
                  
                     {upcomingmovies.map((movie) => {
@@ -176,11 +238,11 @@ const Popular = () => {
 
 
                                 )}
-                                <img className="img1" src={`https://image.tmdb.org/t/p/original/${movie.poster}`} />
+                                <img className="img1" src={`https://image.tmdb.org/t/p/original/${movie.poster2}`} />
                                 <center>
-                                    <div className="img2">{movie.title}</div>
+                                    <div className="img2">{movie.title2}</div>
                                 </center>
-                                <div className="text">{movie.overview}</div>
+                                <div className="text">{movie.overview2}</div>
 
                             </div>
 
@@ -194,6 +256,7 @@ const Popular = () => {
             </>
 
             <>
+                <center><h3>Popular</h3></center>
                 <div className="text-center scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4 pt-2">
                    
                     {populars.map((movie) => {
