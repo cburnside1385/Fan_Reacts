@@ -4,15 +4,18 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        me: async (context) => {
+        me: async (parent, args, context) => {
             if (context.user) {
-                const userData = await User.findOne({ _id: context.user._id }).select('-__v -password');
+                const userData = await User.findOne({ _id: context.user._id })
+                    .select("-__v -password")
+                    .populate("movies");
+
                 return userData;
             }
-            throw new AuthenticationError('Please login to continue');
+
+            throw new AuthenticationError("Not logged in");
         },
     },
-
     Mutation: {
         addUser: async (parent, args) => {
             try {
@@ -40,6 +43,19 @@ const resolvers = {
             const token = signToken(user);
 
             return { token, user };
+        },
+        saveMovie: async (parent, args, context) => {
+            if (context.user) {
+                const updatedUser = await User.findByIdAndUpdate(
+                    { _id: context.user._id },
+                 
+                    { $addToSet: { saveMovie: args.input } },
+                    { new: true, runValidators: true }
+                );
+
+                return updatedUser;
+            }
+            throw new AuthenticationError("You need to be logged in!");
         },
        
     },

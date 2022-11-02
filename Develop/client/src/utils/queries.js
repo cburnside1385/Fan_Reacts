@@ -1,14 +1,15 @@
-import { gql } from '@apollo/client';
+import gql from "graphql-tag";
 
 export const PersonalProfile = gql`
   {
-    me {
+    me{
       _id
       username
       email
       
-      Save {
-        _id
+      saveMovie{
+    
+        filmID
         overview
         title
         poster

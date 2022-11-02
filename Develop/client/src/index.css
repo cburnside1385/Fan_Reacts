@@ -44,6 +44,7 @@ h6 {
         background-size: 310px 440px;
         background-position: left top;
         transition: all 0.5s ease-in-out;
+        pointer-events: none;
     }
 
     .card .img2 {
@@ -153,7 +154,7 @@ h6 {
     overflow-x: auto;
 }
 button {
-    background-color: transparent;
+    
     border: none;
     outline: none;
     cursor: pointer;
@@ -166,14 +167,14 @@ button {
 .off {
     color: #ccc;
 }
-
 .saved {
-    color: #000;
+    color: red;
+    font-size: 120px;
+    background-color:transparent;
+
 }
 
-.notSaved {
-    color: #ccc;
-}
+
 .heart {
     color: white;
     position: absolute;

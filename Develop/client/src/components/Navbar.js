@@ -5,6 +5,9 @@ import LoginForm from './LoginForm';
 import { search } from '../utils/API';
 import { Navbar, Nav, Container, Modal, Tab, Form, Button } from 'react-bootstrap';
 import Auth from '../utils/auth';
+import { SAVE } from "../utils/mutations";
+import { useMutation } from "@apollo/react-hooks";
+import { saveMovieIds, getSavedMovieIds } from "../utils/localStorage";
 
 
 
@@ -13,7 +16,9 @@ const AppNavbar = () => {
   const [showModal, setShowModal] = useState(false);
     const [searchInput, setSearchInput] = useState('');
     const [Moviesearch, movieapi] = useState([]);
-    const handleFormSubmit = async (event) => {
+    const [saved, setSaveId] = useState(getSavedMovieIds());
+    const [save] = useMutation(SAVE);
+    const searchFilms = async (event) => {
         event.preventDefault();
 
         if (!searchInput) {
@@ -21,6 +26,7 @@ const AppNavbar = () => {
         }
 
         try {
+
             const response = await search(searchInput);
            
            
@@ -32,6 +38,7 @@ const AppNavbar = () => {
             
             const films = results.map((movie) => ({
                 id: movie.id,
+                filmID: movie.id,
                 title: movie.title,
                 overview: movie.overview,
                 poster: movie.poster_path,
@@ -40,6 +47,29 @@ const AppNavbar = () => {
             movieapi(films);
             setSearchInput('');
             
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+
+    const saveIt = async (filmID) => {
+
+        const savefilms = Moviesearch.find((movie) => movie.id === filmID);
+
+
+        const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+        if (!token) {
+            return false;
+        }
+
+        try {
+            await save({
+                variables: { input: savefilms },
+            });
+
+            setSaveId([...saved, savefilms.id]);
         } catch (err) {
             console.error(err);
         }
@@ -70,14 +100,14 @@ const AppNavbar = () => {
                               
                           </Nav.Item>
                           <Nav.Item>
-                              <Form onSubmit={handleFormSubmit}>
+                              <Form onSubmit={searchFilms}>
                                   <button className="btn btn-outline-success" id="searchbtn" type="submit">Search</button>
                               </Form>
                           </Nav.Item>
               {Auth.loggedIn() ? (
                 <>
                   <Nav as={Link} to='/saved'>
-                                      { User Name}
+                    Sav
                   </Nav>
                   <Nav onClick={Auth.logout}>Logout</Nav>
                 </>
@@ -133,10 +163,27 @@ const AppNavbar = () => {
                          
                           return (
                               <div className="card">
-                                  
+                                  {Auth.loggedIn() && (
+                                      <Button
+                                          disabled={saved?.some(
+                                              (savedmovieId) => savedmovieId === movie.id
+                                          )}
+                                          className="btn-block"
+                                          onClick={() => saveIt(movie.id)}
+                                      >
+                                          {saved?.some(
+                                              (savedmovieId) => savedmovieId === movie.id
+                                          )
+                                              ? <span className="saved">&#x2665;</span>
+                                              : <span className="heart">&#x2665;</span>}
+                                      </Button>
+
+
+
+                                  )}
                                       <img className="img1" src={`https://image.tmdb.org/t/p/original/${movie.poster}`} />
                                   <center>
-                                     {/* <FontAwesomeIcon icon={Icons.faCopyright} size="6x" />*/}
+                                  
                                       <div className="img2">{movie.title}</div>
                                           </center>
                                     <div className="text">{movie.overview}</div>
