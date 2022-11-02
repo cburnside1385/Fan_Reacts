@@ -5,4 +5,4 @@
 /.vs
 
 DS_Store 
-Node_Modules 
+node_modules 
