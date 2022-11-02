@@ -79,36 +79,41 @@ const AppNavbar = () => {
       <Navbar expand='lg'>
         <Container fluid>
           <Navbar as={Link} to='/'>
-           FanReacts
-          </Navbar>
+                FanReacts
+                  </Navbar>
+                  <Nav as={Link} to='/saved' className='heartlink'>
+                      &#x2665;
+                  </Nav>
           <Navbar.Toggle aria-controls='navbar' />
-          <Navbar.Collapse id='navbar'>
-            <Nav className='ml-auto'>
-                          <Nav.Item>
-                              <Form>
+                  <Navbar.Collapse id='navbar'>
+                      <center>
+                      <Nav.Item className="sea">
+                          <Form>
 
-                                  <Form.Control
+                              <Form.Control
                                   name='searchInput'
                                   value={searchInput}
-                                      onChange={(e) => setSearchInput(e.target.value) }
+                                  onChange={(e) => setSearchInput(e.target.value)}
                                   type='text'
                                   size='lg'
                                   placeholder='Search for a movie'
-                                            />
-                         
-                              </Form>
-                              
+                              />
+
+                          </Form>
+
                           </Nav.Item>
-                          <Nav.Item>
-                              <Form onSubmit={searchFilms}>
-                                  <button className="btn btn-outline-success" id="searchbtn" type="submit">Search</button>
-                              </Form>
+                      </center>
+                      <Nav.Item>
+                          <Form onSubmit={searchFilms}>
+                              <button className="btn" id="searchbtn" type="submit">Search</button>
+                          </Form>
                           </Nav.Item>
+                        
+            <Nav className='ml-auto'>
+                        
               {Auth.loggedIn() ? (
                 <>
-                  <Nav as={Link} to='/saved'>
-                    Sav
-                  </Nav>
+                  
                   <Nav onClick={Auth.logout}>Logout</Nav>
                 </>
                           ) : (

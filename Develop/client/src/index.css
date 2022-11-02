@@ -1,5 +1,6 @@
 body {
   font-family: 'Rubik', sans-serif;
+  background-color:darkgray;
 }
 
 h1,
@@ -45,6 +46,17 @@ h6 {
         background-position: left top;
         transition: all 0.5s ease-in-out;
         pointer-events: none;
+    }
+    .icon {
+        
+        top: 0;
+        left: 0;
+        height: 55px;
+        width: 55px;
+        background-size: 310px 440px;
+        background-position: left top;
+        transition: all 0.5s ease-in-out;
+        color:white;
     }
 
     .card .img2 {
@@ -174,6 +186,12 @@ button {
 
 }
 
+.heartlink {
+    color: red;
+    font-size: 65px;
+    background-color: transparent;
+    margin-left: 25px;
+}
 
 .heart {
     color: white;
@@ -186,4 +204,12 @@ button {
     
 }
 
+#searchbtn {
+    color: #FFCB05;
+    border-color: #FFCB05;
+    margin-left: 15px;
+}
 
+.sea {
+    margin-left: 800px;
+}
