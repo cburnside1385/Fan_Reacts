@@ -81,9 +81,15 @@ const AppNavbar = () => {
           <Navbar as={Link} to='/'>
                 FanReacts
                   </Navbar>
+                  {Auth.loggedIn() ? (
                   <Nav as={Link} to='/saved' className='heartlink'>
                       &#x2665;
-                  </Nav>
+                      </Nav>
+                  ) : (
+                          <Nav as={Link} to='/saved' className='heartlink'>
+                             
+                          </Nav>
+                  )}
           <Navbar.Toggle aria-controls='navbar' />
                   <Navbar.Collapse id='navbar'>
                       <center>

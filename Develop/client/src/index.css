@@ -17,6 +17,19 @@ h6 {
   font-style: italic;
 }
 
+::-webkit-scrollbar {
+    width: 20px;
+}
+
+::-webkit-scrollbar-track {
+    border: 3px solid #5e6472;
+    background-color: #00274C;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #FFCB05, #00274C);
+}
+
 
 
 .modal-title {
@@ -30,8 +43,9 @@ h6 {
     width: 320px;
     height: 550px;
     margin: 50px auto;
+    margin-right: 25px;
     background-color: #00274C;
-    border: 5px solid white;
+    border: 15px solid white;
     border-radius: 3px;
     box-shadow: 0 0 10px #2a264f;
 }
