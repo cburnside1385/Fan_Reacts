@@ -4,8 +4,6 @@ import SignUpForm from './SignupForm';
 import LoginForm from './LoginForm';
 import { search } from '../utils/API';
 import { Navbar, Nav, Container, Modal, Tab, Form, Button } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-/*import {Icons} from "@fortawesome/fontawesome-free-solid"*/
 import Auth from '../utils/auth';
 
 
@@ -79,7 +77,7 @@ const AppNavbar = () => {
               {Auth.loggedIn() ? (
                 <>
                   <Nav as={Link} to='/saved'>
-                    See Your Books
+                                      { User Name}
                   </Nav>
                   <Nav onClick={Auth.logout}>Logout</Nav>
                 </>
@@ -129,7 +127,7 @@ const AppNavbar = () => {
 
               
                  
-                      <div class="form-row text-center">
+                      <div className="form-row text-center">
                          
                       {Moviesearch.map((movie) => {
                          

@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:3006/fans', {
+mongoose.connect('mongodb://localhost/fans', {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: true,
 });
 
 module.exports = mongoose.connection;

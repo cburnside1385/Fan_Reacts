@@ -8,7 +8,7 @@ export const PersonalProfile = gql`
       email
       
       Save {
-        movieId
+        _id
         overview
         title
         poster

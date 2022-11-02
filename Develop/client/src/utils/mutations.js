@@ -34,14 +34,12 @@ export const ADD_USER = gql`
         _id
         username
         email
-        movieCount
+        password
         Save {
-          authors
-          movieId
-          image
-          link
+          _id
+          poster
           title
-          description
+          overview
         }
       }
     }
@@ -55,7 +53,7 @@ export const SAVE_Movie = gql`
       username
       email
       Save {
-        movieId
+        _id
         authors
         description
         title

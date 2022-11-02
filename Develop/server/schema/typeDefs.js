@@ -6,6 +6,7 @@ const typeDefs = gql`
     username: String!
     email: String!
     Save: [Movie]
+password: String!
   }
 
   type Auth {
@@ -14,7 +15,8 @@ const typeDefs = gql`
   }
 
   type Movie {
-    movieId: ID!
+_id:ID!
+    movieId:  String
     
     title: String
       poster: String
