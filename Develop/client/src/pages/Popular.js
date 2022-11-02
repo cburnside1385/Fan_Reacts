@@ -107,7 +107,7 @@ const Popular = () => {
       
 
             
-        <div className="container-fluid" >
+        <div className="container-fluid" id="clear">
 
 
             

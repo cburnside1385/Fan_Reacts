@@ -35,7 +35,7 @@ const AppNavbar = () => {
             }
           
             const { results } = await response.json();
-            
+            const clear = document.getElementById('clear');
             const films = results.map((movie) => ({
                 id: movie.id,
                 filmID: movie.id,
@@ -46,6 +46,7 @@ const AppNavbar = () => {
           
             movieapi(films);
             setSearchInput('');
+            clear.remove();
             
         } catch (err) {
             console.error(err);
@@ -78,7 +79,7 @@ const AppNavbar = () => {
     <>
       <Navbar expand='lg'>
         <Container fluid>
-          <Navbar as={Link} to='/'>
+          <Navbar as={Link} to='/Popular'>
                 FanReacts
                   </Navbar>
                   {Auth.loggedIn() ? (
