@@ -1,5 +1,6 @@
 body {
   font-family: 'Rubik', sans-serif;
+  background-color:darkgray;
 }
 
 h1,
@@ -16,6 +17,19 @@ h6 {
   font-style: italic;
 }
 
+::-webkit-scrollbar {
+    width: 20px;
+}
+
+::-webkit-scrollbar-track {
+    border: 3px solid #5e6472;
+    background-color: #00274C;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #FFCB05, #00274C);
+}
+
 
 
 .modal-title {
@@ -29,8 +43,9 @@ h6 {
     width: 320px;
     height: 550px;
     margin: 50px auto;
+    margin-right: 25px;
     background-color: #00274C;
-    border: 5px solid white;
+    border: 15px solid white;
     border-radius: 3px;
     box-shadow: 0 0 10px #2a264f;
 }
@@ -44,6 +59,18 @@ h6 {
         background-size: 310px 440px;
         background-position: left top;
         transition: all 0.5s ease-in-out;
+        pointer-events: none;
+    }
+    .icon {
+        
+        top: 0;
+        left: 0;
+        height: 55px;
+        width: 55px;
+        background-size: 310px 440px;
+        background-position: left top;
+        transition: all 0.5s ease-in-out;
+        color:white;
     }
 
     .card .img2 {
@@ -153,7 +180,7 @@ h6 {
     overflow-x: auto;
 }
 button {
-    background-color: transparent;
+    
     border: none;
     outline: none;
     cursor: pointer;
@@ -166,14 +193,20 @@ button {
 .off {
     color: #ccc;
 }
-
 .saved {
-    color: #000;
+    color: red;
+    font-size: 120px;
+    background-color:transparent;
+
 }
 
-.notSaved {
-    color: #ccc;
+.heartlink {
+    color: red;
+    font-size: 65px;
+    background-color: transparent;
+    margin-left: 25px;
 }
+
 .heart {
     color: white;
     position: absolute;
@@ -185,4 +218,12 @@ button {
     
 }
 
+#searchbtn {
+    color: #FFCB05;
+    border-color: #FFCB05;
+    margin-left: 15px;
+}
 
+.sea {
+    margin-left: 800px;
+}

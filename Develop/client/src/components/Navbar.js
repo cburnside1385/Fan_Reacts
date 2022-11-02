@@ -4,9 +4,10 @@ import SignUpForm from './SignupForm';
 import LoginForm from './LoginForm';
 import { search } from '../utils/API';
 import { Navbar, Nav, Container, Modal, Tab, Form, Button } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-/*import {Icons} from "@fortawesome/fontawesome-free-solid"*/
 import Auth from '../utils/auth';
+import { SAVE } from "../utils/mutations";
+import { useMutation } from "@apollo/react-hooks";
+import { saveMovieIds, getSavedMovieIds } from "../utils/localStorage";
 
 
 
@@ -15,7 +16,9 @@ const AppNavbar = () => {
   const [showModal, setShowModal] = useState(false);
     const [searchInput, setSearchInput] = useState('');
     const [Moviesearch, movieapi] = useState([]);
-    const handleFormSubmit = async (event) => {
+    const [saved, setSaveId] = useState(getSavedMovieIds());
+    const [save] = useMutation(SAVE);
+    const searchFilms = async (event) => {
         event.preventDefault();
 
         if (!searchInput) {
@@ -23,6 +26,7 @@ const AppNavbar = () => {
         }
 
         try {
+
             const response = await search(searchInput);
            
            
@@ -31,9 +35,10 @@ const AppNavbar = () => {
             }
           
             const { results } = await response.json();
-            
+            const clear = document.getElementById('clear');
             const films = results.map((movie) => ({
                 id: movie.id,
+                filmID: movie.id,
                 title: movie.title,
                 overview: movie.overview,
                 poster: movie.poster_path,
@@ -41,7 +46,31 @@ const AppNavbar = () => {
           
             movieapi(films);
             setSearchInput('');
+            clear.remove();
             
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+
+    const saveIt = async (filmID) => {
+
+        const savefilms = Moviesearch.find((movie) => movie.id === filmID);
+
+
+        const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+        if (!token) {
+            return false;
+        }
+
+        try {
+            await save({
+                variables: { input: savefilms },
+            });
+
+            setSaveId([...saved, savefilms.id]);
         } catch (err) {
             console.error(err);
         }
@@ -50,37 +79,48 @@ const AppNavbar = () => {
     <>
       <Navbar expand='lg'>
         <Container fluid>
-          <Navbar as={Link} to='/'>
-           FanReacts
-          </Navbar>
+          <Navbar as={Link} to='/Popular'>
+                FanReacts
+                  </Navbar>
+                  {Auth.loggedIn() ? (
+                  <Nav as={Link} to='/saved' className='heartlink'>
+                      &#x2665;
+                      </Nav>
+                  ) : (
+                          <Nav as={Link} to='/saved' className='heartlink'>
+                             
+                          </Nav>
+                  )}
           <Navbar.Toggle aria-controls='navbar' />
-          <Navbar.Collapse id='navbar'>
-            <Nav className='ml-auto'>
-                          <Nav.Item>
-                              <Form>
+                  <Navbar.Collapse id='navbar'>
+                      <center>
+                      <Nav.Item className="sea">
+                          <Form>
 
-                                  <Form.Control
+                              <Form.Control
                                   name='searchInput'
                                   value={searchInput}
-                                      onChange={(e) => setSearchInput(e.target.value) }
+                                  onChange={(e) => setSearchInput(e.target.value)}
                                   type='text'
                                   size='lg'
                                   placeholder='Search for a movie'
-                                            />
-                         
-                              </Form>
-                              
+                              />
+
+                          </Form>
+
                           </Nav.Item>
-                          <Nav.Item>
-                              <Form onSubmit={handleFormSubmit}>
-                                  <button className="btn btn-outline-success" id="searchbtn" type="submit">Search</button>
-                              </Form>
+                      </center>
+                      <Nav.Item>
+                          <Form onSubmit={searchFilms}>
+                              <button className="btn" id="searchbtn" type="submit">Search</button>
+                          </Form>
                           </Nav.Item>
+                        
+            <Nav className='ml-auto'>
+                        
               {Auth.loggedIn() ? (
                 <>
-                  <Nav as={Link} to='/saved'>
-                    See Your Books
-                  </Nav>
+                  
                   <Nav onClick={Auth.logout}>Logout</Nav>
                 </>
                           ) : (
@@ -129,16 +169,33 @@ const AppNavbar = () => {
 
               
                  
-                      <div class="form-row text-center">
+                      <div className="form-row text-center">
                          
                       {Moviesearch.map((movie) => {
                          
                           return (
                               <div className="card">
-                                  
+                                  {Auth.loggedIn() && (
+                                      <Button
+                                          disabled={saved?.some(
+                                              (savedmovieId) => savedmovieId === movie.id
+                                          )}
+                                          className="btn-block"
+                                          onClick={() => saveIt(movie.id)}
+                                      >
+                                          {saved?.some(
+                                              (savedmovieId) => savedmovieId === movie.id
+                                          )
+                                              ? <span className="saved">&#x2665;</span>
+                                              : <span className="heart">&#x2665;</span>}
+                                      </Button>
+
+
+
+                                  )}
                                       <img className="img1" src={`https://image.tmdb.org/t/p/original/${movie.poster}`} />
                                   <center>
-                                     {/* <FontAwesomeIcon icon={Icons.faCopyright} size="6x" />*/}
+                                  
                                       <div className="img2">{movie.title}</div>
                                           </center>
                                     <div className="text">{movie.overview}</div>

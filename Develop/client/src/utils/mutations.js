@@ -33,36 +33,47 @@ export const ADD_USER = gql`
       user {
         _id
         username
-        email
-        movieCount
-        Save {
-          authors
-          movieId
-          image
-          link
-          title
-          description
-        }
+        
+    
       }
     }
   }
 `;
 
-export const SAVE_Movie = gql`
-  mutation saveMovie($newMovie: InputMovie!) {
-    saveMovie(newMovie: $newMovie) {
+export const SAVE = gql`
+  mutation saveMovie($input: savedtheMovie!) {
+    saveMovie(input: $input) {
       _id
       username
       email
-      Save {
-        movieId
-        authors
-        description
+      saveMovie {
+        # _id
+        filmID
+        overview
         title
-        image
-        link
+        poster
+      
+      }
+    }
+
+  }
+
+`;
+export const Delete = gql`
+  mutation deleteMovie($input: savedtheMovie!) {
+    deleteMovie(input: $input) {
+      _id
+      username
+      email
+      saveMovie {
+        # _id
+        filmID
+        overview
+        title
+        poster
+      
       }
     }
   }
-`;
 
+`;

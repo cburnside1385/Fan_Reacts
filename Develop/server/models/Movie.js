@@ -2,10 +2,11 @@ const { Schema } = require('mongoose');
 
 // schema for movies that are saved by the user
 const films = new Schema({
-  id: {
-    type: String,
-    unique: true
-  },
+    filmID:
+    {
+        type: Number,
+        required: true
+    },
   title: 
   {
     type: String,
@@ -17,7 +18,7 @@ const films = new Schema({
   },
   poster: {
     type: String,
-    required: true,
+   
   },
   release: {
     type: String
@@ -26,10 +27,6 @@ const films = new Schema({
     type: String,
   }
 },
-{
-  toJson: {
-    getters: true
-  }
-});
+);
 
 module.exports = films;
