@@ -11,6 +11,6 @@ export const nowplaying = () => {
 }
 // search for a single movie title
 export const search = (query) => {
-    return fetch(`https://api.themoviedb.org/3/search/movie/?api_key=7fe128699a494c43ade05a16dbd2a6fa&language=en-US&query=${query}&page=1`)
+    return fetch(`https://api.themoviedb.org/3/search/movie?api_key=7fe128699a494c43ade05a16dbd2a6fa&language=en-US&query=${query}&page=1`)
 }
 
