@@ -213,10 +213,10 @@ const Popular = () => {
 
 
             
-            <center><h3>Now Playing</h3></center>
+            <center><h3>Popular</h3></center>
                 <div className="text-center scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4 pt-2">
 
-                {nowplayingmovies.map((movie) => {
+                {populars.map((movie) => {
 
                             return (
                                 <><div className="card col-2">
@@ -226,7 +226,7 @@ const Popular = () => {
                                                 (savedmovieId) => savedmovieId === movie.id
                                             )}
                                             className="btn-block"
-                                            onClick={() => saveIt2(movie.id)}
+                                            onClick={() => saveIt(movie.id)}
                                         >
                                             {saved?.some(
                                                 (savedmovieId) => savedmovieId === movie.id
@@ -238,11 +238,11 @@ const Popular = () => {
 
 
                                     )}
-                                    <img className="img1" src={`https://image.tmdb.org/t/p/original/${movie.poster3}`} />
+                                    <img className="img1" src={`https://image.tmdb.org/t/p/original/${movie.poster}`} />
                                     <center>
-                                        <div className="img2">{movie.title3}</div>
+                                        <div className="img2">{movie.title}</div>
                                     </center>
-                                    <div className="text">{movie.overview3}</div>
+                                    <div className="text">{movie.overview}</div>
 
                                 </div>
                                   
@@ -297,10 +297,10 @@ const Popular = () => {
             </>
 
             <>
-                <center><h3>Popular</h3></center>
+                <center><h3>Now Playing</h3></center>
                 <div className="text-center scrolling-wrapper row flex-row flex-nowrap mt-4 pb-4 pt-2">
                    
-                    {populars.map((movie) => {
+                    {nowplayingmovies.map((movie) => {
 
                         return (
                             <><div className="card col-2">
@@ -310,7 +310,7 @@ const Popular = () => {
                                             (savedmovieId) => savedmovieId === movie.id
                                         )}
                                         className="btn-block"
-                                        onClick={() => saveIt(movie.id)}
+                                        onClick={() => saveIt2(movie.id)}
                                     >
                                         {saved?.some(
                                             (savedmovieId) => savedmovieId === movie.id
@@ -322,11 +322,11 @@ const Popular = () => {
 
 
                                 )}
-                                <img className="img1" src={`https://image.tmdb.org/t/p/original/${movie.poster}`} />
+                                <img className="img1" src={`https://image.tmdb.org/t/p/original/${movie.poster3}`} />
                                 <center>
-                                    <div className="img2">{movie.title}</div>
+                                    <div className="img2">{movie.title3}</div>
                                 </center>
-                                <div className="text">{movie.overview}</div>
+                                <div className="text">{movie.overview3}</div>
 
                             </div>
 
