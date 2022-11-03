@@ -137,11 +137,52 @@ const Popular = () => {
             console.error(err);
         }
     };
+    const saveIt2 = async (filmID) => {
+
+        const savefilms = nowplayingmovies.find((movie) => movie.id === filmID);
+      
+        const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+        if (!token) {
+            return false;
+        }
+
+        try {
+            await save({
+                variables: { input: savefilms },
+            });
+
+            setSaveId([...saved, savefilms.id]);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    const saveIt3 = async (filmID) => {
+
+   
+        const savefilms = upcomingmovies.find((movie) => movie.id === filmID);
+        const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+        if (!token) {
+            return false;
+        }
+
+        try {
+            await save({
+                variables: { input: savefilms },
+            });
+
+            setSaveId([...saved, savefilms.id]);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     const saveIt = async (filmID) => {
 
         const savefilms = populars.find((movie) => movie.id === filmID);
-
-   
+        
         const token = Auth.loggedIn() ? Auth.getToken() : null;
 
         if (!token) {
@@ -185,7 +226,7 @@ const Popular = () => {
                                                 (savedmovieId) => savedmovieId === movie.id
                                             )}
                                             className="btn-block"
-                                            onClick={() => saveIt(movie.id)}
+                                            onClick={() => saveIt2(movie.id)}
                                         >
                                             {saved?.some(
                                                 (savedmovieId) => savedmovieId === movie.id
@@ -226,7 +267,7 @@ const Popular = () => {
                                             (savedmovieId) => savedmovieId === movie.id
                                         )}
                                         className="btn-block"
-                                        onClick={() => saveIt(movie.id)}
+                                        onClick={() => saveIt3(movie.id)}
                                     >
                                         {saved?.some(
                                             (savedmovieId) => savedmovieId === movie.id
