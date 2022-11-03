@@ -79,7 +79,7 @@ const AppNavbar = () => {
     <>
       <Navbar expand='lg'>
         <Container fluid>
-          <Navbar as={Link} to='/Popular'>
+          <Navbar as={Link} to='/'>
                 FanReacts
                   </Navbar>
                   {Auth.loggedIn() ? (
